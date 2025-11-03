@@ -7,10 +7,12 @@
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "moment": "^2.30.1",
     "moment-random": "^1.1.0",
+    "mongoose": "^8.19.2",
     "morgan": "~1.9.1"
   }
 }
