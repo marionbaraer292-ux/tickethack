@@ -1,0 +1,62 @@
+.content {
+    background-image: url("./images/background.jpg");
+    background-size: cover;
+}
+header {
+    color: white;
+    text-align: center;
+}
+
+.logo{
+    color: #2b9c89;
+    text-align: left;
+}
+
+.nav-links{
+    color: black;
+    text-align: right;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.search-box, .info-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 20px;
+    width: 250px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.search-box input {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.search-box button {
+    width: 100%;
+    padding: 10px;
+    background-color: #2b9c89;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.info-card {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.icon {
+    justify-content: center;
+}
