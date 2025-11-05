@@ -1,16 +1,35 @@
-var express = require('express');
-var router = express.Router();
-const Trip = require('../models/trips');
+const express = require("express");
+const router = express.Router();
+const Trip = require("../models/trips");
+const buildSearch = require("../utils/buildSearch");
 
-/* GET trips listing. */
-/* router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});*/ 
+router.get("/", async (req, res) => {
+    try {
+        const trips = await Trip.find({ available: { $ne: false } });
+        return res.json({ result: true, trips });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ result: false, error: "Database error" });
+    }
+});
 
-router.get('/', (req, res) => {
-	Trip.find().then(data => {
-		res.json({ trip: data });
-	});
+router.post("/", async (req, res) => {
+    try {
+        const searchParams = buildSearch(req.body);
+
+        const trips = await Trip.find({
+            ...searchParams,
+            available: { $ne: false },
+        });
+
+        if (trips.length <= 0)
+            return res.json({ result: false, message: "No trips found" });
+
+        return res.json({ result: true, trips });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ result: false, error: "Database error" });
+    }
 });
 
 module.exports = router;
