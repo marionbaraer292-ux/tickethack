@@ -13,9 +13,11 @@ const buildSearch = (params = {}) => {
     }
 
     if (date) {
-        const startOfDay = moment(date).startOf("day").toDate();
-        const endOfDay = moment(date).endOf("day").toDate();
+        const startOfDay = moment.utc(date).startOf("day").toDate();
+        const endOfDay = moment.utc(date).endOf("day").toDate();
         search.date = { $gte: startOfDay, $lte: endOfDay };
+    } else {
+        search.date = { $gte: new Date() };
     }
 
     return search;

@@ -32,7 +32,7 @@ const buildCartContainer = (cartItems) => {
         })
         .join("");
     return `
-                <p>My cart</p>
+                <p id="title">My cart</p>
                 <div id="cartList">
                     ${itemList}
                 </div>

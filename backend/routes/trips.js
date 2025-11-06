@@ -21,12 +21,9 @@ router.post("/", async (req, res) => {
     try {
         const searchParams = buildSearch(req.body);
 
-        const today = new Date();
-
         const trips = await Trip.find({
             ...searchParams,
             available: { $ne: false },
-            date: { $gte: today },
         });
 
         if (trips.length <= 0)

@@ -18,16 +18,18 @@ const buildTimeBeforeDeparture = (ms) => {
 const buildCartTrip = (item) => {
     const timeLeft =
         item.timeBeforeDeparture <= 0
-            ? "Is out of time!"
-            : `Departure in ${buildTimeBeforeDeparture(
+            ? `<p style="color:red;">Departure since ${buildTimeBeforeDeparture(
+                  -item.timeBeforeDeparture
+              )}</p>`
+            : `<p style="color:green;">Departure in ${buildTimeBeforeDeparture(
                   item.timeBeforeDeparture
-              )}`;
+              )}</p>`;
     return `
             <div class="cardTrip">
                 <p>${item.trip.departure} > ${item.trip.arrival}</p>
                 <p>${moment(item.trip.date).format("YYYY-MM-DD HH:mm")}</p>
                 <p>${item.trip.price}€</p>
-                <p>${timeLeft}</p>
+                ${timeLeft}
             </div>
     `;
 };
@@ -42,15 +44,17 @@ const getbookings = async () => {
                 <p>Why not plan a trip?</p></div>`;
         return;
     }
-    const result = bookings
+    const result = bookings.sort((a, b)=>a.timeBeforeDeparture - b.timeBeforeDeparture)
         .map((booking) => {
             return buildCartTrip(booking);
         })
         .join("");
-        bookingsContainer.innerHTML = `<p>My bookings</p>
-                            <div id="bookingList">${result}</div>
-                            <div id="lineBlack"></div>
-                            <p id="textEnjoy">Enjoy your travels with TicketHack!</p>`;
+    bookingsContainer.innerHTML = `<p id="title">My bookings</p>
+                                    <div id="bookingList">${result}</div>
+                                    <div id="bottomContainer">
+                                        <div id="lineBlack"></div>
+                                        <p id="textEnjoy">Enjoy your travels with TicketHack!</p>
+                                    </div>`;
 };
 
 getbookings();

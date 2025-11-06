@@ -8,7 +8,6 @@
 
     & #bookingsContainer {
         border-radius: 0.5rem;
-        padding: 1rem;
         width: 60%;
         max-height: 60%;
         background-color: #fefefe;
@@ -18,6 +17,18 @@
         overflow-y: auto;
         align-items: center;
         gap: 1rem;
+        position: relative;
+
+        & #title {
+            position: sticky;
+            margin: 0;
+            top: 0;
+            padding: 2rem 0 1rem;
+            background-color: #fefefe;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
 
         & #bookingList {
             width: 90%;
@@ -33,16 +44,26 @@
                 border-radius: 0.25rem;
             }
         }
+        & #bottomContainer {
+            position: sticky;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #fefefe;
+            width: 100%;
+            gap: 1rem;
 
-        & #lineBlack {
-            margin-top: 2rem;
-            min-height: 0.125rem;
-            width: 25%;
-            background-color: #7d808c;
-        }
+            & #lineBlack {
+                margin-top: 2rem;
+                min-height: 0.125rem;
+                width: 20%;
+                background-color: #7d808c;
+            }
 
-        & #textEnjoy {
-            color: #2b9c89;
+            & #textEnjoy {
+                color: #2b9c89;
+            }
         }
     }
 }

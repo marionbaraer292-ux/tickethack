@@ -85,6 +85,8 @@
             flex-direction: column;
             justify-content: center;
             gap: 1.5rem;
+            position: relative;
+            padding-top: 0;
 
             & img {
                 max-width: 8rem;
@@ -95,6 +97,32 @@
                 background-color: #2b9c89;
                 margin: 0 auto;
                 width: 80%;
+            }
+
+            & #sortContainer {
+                width: 100%;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                position: sticky;
+                padding: 1rem;
+                margin: 0;
+                top: 0;
+                background-color: #f7f0f0;
+
+                & #sortSelect {
+                    padding: 0.5rem;
+                    border-radius: 0.25rem;
+                    border: 1px solid #ccc;
+                    background-color: #fff;
+                    cursor: pointer;
+
+                    & :focus {
+                        outline: none;
+                        border-color: #2b9c89;
+                        box-shadow: 0 0 5px rgba(43, 156, 137, 0.5);
+                    }
+                }
             }
 
             & .cardTrip {

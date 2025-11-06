@@ -1,5 +1,5 @@
 const search = document.getElementById("search");
-const searchBox = document.querySelector(".search-box");
+const formContainer = document.getElementById("formContainer");
 const infoCard = document.getElementById("info-card");
 const buttonSearch = document.getElementById("buttonSearch");
 const inputDateTT = document.getElementById("inputDeparture");
@@ -16,14 +16,30 @@ const notFoundInfoCard = `
 
 infoCard.innerHTML = startInfoCard;
 
+let currentTrips = [];
+
 const buildCardList = (trips, withDate = false) => {
     infoCard.style.justifyContent = "flex-start";
     infoCard.style.overflowY = "auto";
     infoCard.style.maxHeight = "20rem";
-    infoCard.style.paddingRight = "0.5rem";
-    return trips
-        .map(
-            (t) => `<div class="cardTrip">
+    infoCard.style.paddingRight = "1.5rem";
+    const tripsLength = trips.length;
+    const headSort = `
+                        <div id="sortContainer">
+                            <label for="sortSelect">Sort ${tripsLength} trip${
+        tripsLength > 1 ? "s" : ""
+    } by:</label>
+                            <select id="sortSelect">
+                                <option value="none">None</option>
+                                <option value="date">Date</option>
+                                <option value="price">Price</option>
+                            </select>
+                        </div>`;
+    return (
+        headSort +
+        trips
+            .map(
+                (t) => `<div class="cardTrip">
                         <div class="cardInfo">
                             <p>${t.departure} > ${t.arrival}</p>
                             <p>${moment(t.date).format(
@@ -34,8 +50,37 @@ const buildCardList = (trips, withDate = false) => {
                         <button id="${t._id}" class="add">Book</button>
                     </div>
                     `
-        )
-        .join("");
+            )
+            .join("")
+    );
+};
+
+const renderTrips = (trips, withDate = false) => {
+    infoCard.innerHTML = buildCardList(trips, withDate);
+
+    if (!withDate) {
+        document.querySelectorAll(".cardInfo").forEach((e) => {
+            e.style.gap = "1rem";
+        });
+    }
+
+    setAddCartEvents();
+
+    const sortSelect = document.getElementById("sortSelect");
+    if (sortSelect) {
+        sortSelect.addEventListener("change", (e) => {
+            const value = e.target.value;
+            let sorted = [...currentTrips];
+
+            if (value === "date") {
+                sorted.sort((a, b) => new Date(a.date) - new Date(b.date));
+            } else if (value === "price") {
+                sorted.sort((a, b) => a.price - b.price);
+            }
+
+            renderTrips(sorted, withDate);
+        });
+    }
 };
 
 const getTrips = async (searchParams) => {
@@ -46,16 +91,14 @@ const getTrips = async (searchParams) => {
     });
     const data = await response.json();
 
-    infoCard.innerHTML = data.result
-        ? buildCardList(data.trips, searchParams?.date ?? false)
-        : notFoundInfoCard;
-
-    if (!searchParams?.date) {
-        document.querySelectorAll(".cardInfo").forEach((e) => {
-            e.style.gap = "1rem";
-        });
+    if (!data.result) {
+        infoCard.innerHTML = notFoundInfoCard;
+        return;
     }
-    setAddCartEvents();
+
+    currentTrips = data.trips;
+
+    renderTrips(currentTrips, searchParams?.date ?? false);
 };
 
 const setAddCartEvents = () => {
@@ -81,7 +124,7 @@ buttonSearch.addEventListener("click", () => {
     const inputDate = document.getElementById("inputDate");
 
     if (moment(inputDate.value).toDate() < new Date()) {
-        searchBox.innerHTML += `<p id='errorDate' style='color: red;'>Date must be after today!</p>`;
+        formContainer.innerHTML += `<p id='errorDate' style='color: red;'>Date must be after today!</p>`;
         return;
     }
 

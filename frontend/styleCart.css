@@ -18,6 +18,17 @@
         align-items: center;
         position: relative;
 
+        & #title {
+            position: sticky;
+            margin: 0;
+            top: 0;
+            padding: 2rem 0 1rem;
+            background-color: #fefefe;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
         & #cartList {
             margin: 1rem;
             width: 95%;
