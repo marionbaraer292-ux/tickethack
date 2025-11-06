@@ -5,7 +5,11 @@ const buildSearch = require("../utils/buildSearch");
 
 router.get("/", async (req, res) => {
     try {
-        const trips = await Trip.find({ available: { $ne: false } });
+        const today = new Date();
+        const trips = await Trip.find({
+            available: { $ne: false },
+            date: { $gte: today },
+        });
         return res.json({ result: true, trips });
     } catch (err) {
         console.error(err);
@@ -17,9 +21,12 @@ router.post("/", async (req, res) => {
     try {
         const searchParams = buildSearch(req.body);
 
+        const today = new Date();
+
         const trips = await Trip.find({
             ...searchParams,
             available: { $ne: false },
+            date: { $gte: today },
         });
 
         if (trips.length <= 0)

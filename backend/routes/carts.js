@@ -48,13 +48,13 @@ router.delete("/:cartId", async (req, res) => {
                 .status(404)
                 .json({ result: false, message: "Cart item not found" });
 
-        const trip = await Trip.findById(cartItem.tripId);
+        const trip = await Trip.findById(cartItem.tripId._id);
         if (trip) {
             trip.available = true;
             await trip.save();
         }
 
-        await cartItem.deleteOne();
+        await cartItem.deleteOne({ _id: req.params.cartId });
         res.json({ result: true, message: "Cart item removed" });
     } catch (err) {
         console.error(err);

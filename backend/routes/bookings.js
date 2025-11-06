@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const Trip = require("../models/trips");
 const Booking = require("../models/bookings");
+const moment = require("moment");
 
 router.get("/", async (req, res) => {
     const user = "defaultUser";

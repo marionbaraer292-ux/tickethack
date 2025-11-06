@@ -10,8 +10,8 @@
     <body>
         <header id="header"></header>
 
-        <div class="content">
-            <div class="title">
+        <div id="content">
+            <div id="title">
                 <h1>Explore the world effortlessly by train !</h1>
                 <p>
                     Compare, book and enjoy cheap prices for train tickets :
@@ -19,21 +19,31 @@
                 </p>
             </div>
             <div id="search">
-                <div class="search-box">
-                    <input type="text" placeholder="Departure" />
-                    <input type="text" placeholder="Arrival" />
-                    <input type="date" value="2022-06-23" />
-                    <button>Search</button>
+                <div id="search-box">
+                    <div id="formContainer">
+                        <div id="formCity">
+                            <input
+                                id="inputDeparture"
+                                type="text"
+                                placeholder="Departure"
+                            />
+                            <div id="lineBlack"></div>
+                            <input
+                                id="inputArrival"
+                                type="text"
+                                placeholder="Arrival"
+                            />
+                        </div>
+                        <input id="inputDate" type="date" />
+                    </div>
+                    <button id="buttonSearch">Search</button>
                 </div>
 
-                <div class="info-card">
-                    <div class="icon">
-                        <img src="./images/train.png" alt="" />
-                    </div>
-                    <p>It’s time to book your future trip.</p>
-                </div>
+                <div id="info-card"></div>
             </div>
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+        <script src="env.js"></script>
         <script src="script.js"></script>
         <script src="scriptIndex.js"></script>
     </body>
