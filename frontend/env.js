@@ -1,5 +1,5 @@
 const ENV = {
-    API_URL: "http://localhost:3000",
+    API_URL: "https://tickethack-ten.vercel.app",
     VERSION: "1.0"
   };
   
